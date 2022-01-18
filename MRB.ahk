@@ -14,7 +14,7 @@ F12:: ; F12 is hotkey to start the script
     loopNumber := 1 ; Resetting variable in case script errors
     Run, msedge.exe "https://rewards.microsoft.com/" ; Opening Microsoft Edge to the Rewards page
     WinWait, Rewards Dashboard,, %openDelay% ; Waiting for the page to load
-    Sleep, 100
+    Sleep, 100 ; Short wait to let script catch up
     if ErrorLevel { ; If there's an error:
         MsgBox,,MS Rewards Script by WolfieeifloW, Could not load Rewards dashboard.`nPlease try running script again. ; Display an error to the user
         Return ; Stop the script
@@ -34,10 +34,18 @@ F12:: ; F12 is hotkey to start the script
                 Send, %loopNumber% ; Send the increasing number as the search
                 Send, {Enter} ; Enter / Submit the search
                 WinWait, %loopNumber% - Bing,, %openDelay% ; Wait for the search to complete
-                if ErrorLevel { ; If there's an error:
-                    MsgBox,,MS Rewards Script by WolfieeifloW, Search did not complete.`nBing may be down or try running script again. ; Display an error to the user
-                    Return ; Stop the script
-                } Else { ; Else if there isn't an error
+                if ErrorLevel { ; If there's an error we try the search again
+                    Send, {Ctrl down} ; Input holding the CTRL key down
+                    Send, l ; Plus an L to target the address bar
+                    Send, {Ctrl up} ; Release CTRL key
+                    Send, %loopNumber% ; Send the increasing number as the search
+                    Send, {Enter} ; Enter / Submit the search
+                    WinWait, %loopNumber% - Bing,, %openDelay% ; Wait for the search to complete
+                    if ErrorLevel { ; If there's an error:
+                        MsgBox,,MS Rewards Script by WolfieeifloW, Search did not complete.`nBing may be down or try running script again. ; Display an error to the user
+                        Return ; Stop the script
+                    }
+                } Else {
                     loopNumber += 1 ; Add 1 to the increasing number
                 }
             }
@@ -51,11 +59,21 @@ F12:: ; F12 is hotkey to start the script
             Return ; Stop the script
         } Else { ; Else if there isn't an error
             Sleep, 100 ; Small delay to let script catch up
-            Loop, %numberOfTabs% {
-                Send, {Ctrl down} ; Input holding the CTRL key down
-                Send, w ; Sending w 30 times to close all the tabs
-                Send, {Ctrl up} ; Release CTRL key
-                Sleep, 10 ; Very small delay to make sure tabs close smoothly
+            closeTabNumber := 1 ; Counter for closing tabs
+            Loop, %numberOfTabs% { ; Loop by the number of tabs we have open to close them all
+                WinWait, %closeTabNumber% - Bing,, %openDelay% ; Wait to be on the right tab
+                if ErrorLevel { ; If there's an error:
+                    MsgBox,,MS Rewards Script by WolfieeifloW, Closing tabs failed.`nPlease close the tabs manually. ; Display an error to the user
+                    Return ; Stop the script
+                } Else {
+                    closeTabNumber += 1 ; Increment counter to close the next tab
+                    Send, {Ctrl down} ; Input holding the CTRL key down
+                    Send, w ; Sending w 30 times to close all the tabs
+                    Send, {Ctrl up} ; Release CTRL key
+                    ;MsgBox, %closeTabNumber%
+                    ;MsgBox, %closeTabNumber%
+                    ; Sleep, 10 ; Very small delay to make sure tabs close smoothly
+                }
             }
             Sleep, 100 ; Small delay to let script catch up
             MsgBox,,MS Rewards Script by WolfieeifloW, Script complete!`nEnjoy your points! ; Display a message that the script is done
