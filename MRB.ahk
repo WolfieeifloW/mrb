@@ -1,7 +1,7 @@
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #MaxThreadsPerHotkey 2
 ; CHANGE SETTINGS HERE
-numberOfTabs := 30 ; Setting the number of tabs to open
+numberOfTabs := 35 ; Setting the number of tabs to open
 openDelay := 5 ; Setting the delay we allow for a task to complete (set this higher for slower internet / computers)
 
 ; DO NOT TOUCH BELOW HERE DO NOT TOUCH BELOW HERE DO NOT TOUCH BELOW HERE
