@@ -44,6 +44,8 @@ F12:: ; F12 is hotkey to start the script
                     if ErrorLevel { ; If there's an error:
                         MsgBox,,MS Rewards Script by WolfieeifloW, Search did not complete.`nBing may be down or try running script again. ; Display an error to the user
                         Return ; Stop the script
+                    } Else {
+                    loopNumber += 1 ; Add 1 to the increasing number
                     }
                 } Else {
                     loopNumber += 1 ; Add 1 to the increasing number
