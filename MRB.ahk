@@ -33,14 +33,14 @@ F12:: ; F12 is hotkey to start the script
                 Send, {Ctrl up} ; Release CTRL key
                 Send, Bing %loopNumber% ; Send the increasing number as the search
                 Send, {Enter} ; Enter / Submit the search
-                WinWait, Bing %loopNumber% - Bing,, %openDelay% ; Wait for the search to complete
+                WinWait, Bing %loopNumber%,, %openDelay% ; Wait for the search to complete
                 if ErrorLevel { ; If there's an error we try the search again
                     Send, {Ctrl down} ; Input holding the CTRL key down
                     Send, l ; Plus an L to target the address bar
                     Send, {Ctrl up} ; Release CTRL key
                     Send, Bing %loopNumber% ; Send the increasing number as the search
                     Send, {Enter} ; Enter / Submit the search
-                    WinWait, Bing %loopNumber% - Bing,, %openDelay% ; Wait for the search to complete
+                    WinWait, Bing %loopNumber%,, %openDelay% ; Wait for the search to complete
                     if ErrorLevel { ; If there's an error:
                         MsgBox,,MS Rewards Script by WolfieeifloW, Search did not complete.`nBing may be down or try running script again. ; Display an error to the user
                         Return ; Stop the script
@@ -55,7 +55,7 @@ F12:: ; F12 is hotkey to start the script
         Send, {Ctrl down} ; Input holding the CTRL key down
         Send, 2 ; Press 2 to get back to the first search tab
         Send, {Ctrl up} ; Release CTRL key
-        WinWait, Bing 1 - Bing,, %openDelay% ; Wait to be on the correct tab
+        WinWait, Bing 1,, %openDelay% ; Wait to be on the correct tab
         if ErrorLevel { ; If there's an error:
             MsgBox,,MS Rewards Script by WolfieeifloW, Searches complete but closing tabs failed.`nPlease close the tabs manually. ; Display an error to the user
             Return ; Stop the script
@@ -63,7 +63,7 @@ F12:: ; F12 is hotkey to start the script
             Sleep, 100 ; Small delay to let script catch up
             closeTabNumber := 1 ; Counter for closing tabs
             Loop, %numberOfTabs% { ; Loop by the number of tabs we have open to close them all
-                WinWait, Bing %closeTabNumber% - Bing,, %openDelay% ; Wait to be on the right tab
+                WinWait, Bing %closeTabNumber%,, %openDelay% ; Wait to be on the right tab
                 if ErrorLevel { ; If there's an error:
                     MsgBox,,MS Rewards Script by WolfieeifloW, Closing tabs failed.`nPlease close the tabs manually. ; Display an error to the user
                     Return ; Stop the script
